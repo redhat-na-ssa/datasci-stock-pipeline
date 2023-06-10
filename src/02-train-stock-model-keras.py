@@ -88,6 +88,9 @@ print(model.summary())
 
 model.compile(optimizer = 'adam', loss = 'mean_squared_error')
 
+#
+# For testing purposes, train for 2 epochs. This should be increased to improve model accuracy.
+#
 from time import time
 start = time()
 history = model.fit(features, labels, epochs = 2, batch_size = 32, verbose = 1)
