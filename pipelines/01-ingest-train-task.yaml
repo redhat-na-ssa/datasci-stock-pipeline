@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: ingest-train
+spec:
+  workspaces:
+  - name: source
+  params:
+    - name: manifest_dir
+      description: The directory in source that contains yaml manifests
+      type: string
+      default: "k8s"
+  steps:
+    - name: ingest
+      image: image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/ingest-and-train:latest
+      workingDir: /workspace/source
+      command: ["python", "src/01-yahoo2csv.py"]
+      args:
+        - |-
+          echo -----------------------------------
+    - name: train
+      image: image-registry.openshift-image-registry.svc:5000/pipelines-tutorial/ingest-and-train:latest
+      workingDir: /workspace/source
+      command: ["python", "src/02-train-stock-model-keras.py"]
+      args:
+        - |-
+          echo -----------------------------------
