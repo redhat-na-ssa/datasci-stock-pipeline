@@ -1,4 +1,4 @@
-# Experiment with predicting stock prices using Long Short-Term Memory (LSTM)
+# Predicting stock prices using Long Short-Term Memory (LSTM)
 
 ## Prerequisites
 - An Openshift 4.11+ cluster
