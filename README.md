@@ -15,8 +15,12 @@
 ```
 
 ### Pipeline example
+
+Login to Openshift and create a project.
+
 ```
-cd pipelines
+PROJ=pipelines-tutorial
+oc new-project ${PROJ}
 ```
 
 Apply the custom tasks and pipeline resources.
@@ -28,7 +32,7 @@ oc apply -f pipelines/02-ingest-train-pipeline.yaml
 ### Create a PVC
 
 -> Use the Openshift UI to manually create a storage persistent volume claim (PVC) and 
-pass its name in when starting the pipeline below.
+pass its name in when starting the pipeline below. I called mine `my-pipeline-claim-01`
 
 ### Start a pipeline run
 ```
@@ -37,7 +41,7 @@ tkn pipeline start ingest-and-train -w name=shared-workspace,claimName=my-pipeli
 
 ### -> Optional: Auto-create a pvc when starting the pipeline. 
 
-This requires further investigation as the PVCs don't get deleted when the pipeline gets deleted.
+This method requires further investigation as the PVCs don't get deleted when the pipeline gets deleted.
 
 ```
 tkn pipeline start ingest-and-train -w name=shared-workspace,volumeClaimTemplateFile=00-persistent-volume-claim.yaml -p deployment-name=ingest-and-train -p git-url=https://github.com/redhat-na-ssa/stock.git -p IMAGE='image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train' --use-param-defaults
