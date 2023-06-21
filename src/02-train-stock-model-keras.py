@@ -22,6 +22,7 @@ from minio import Minio
 from minio.error import S3Error
 import tf2onnx
 import onnx
+import glob
 
 print(f'******* Env ACCESS_KEY = {os.getenv("ACCESS_KEY")}')
 print(f'******* Env SECRET_KEY = {os.getenv("SECRET_KEY")}')
@@ -165,15 +166,41 @@ def push_model():
 
     # Upload 'stocks.onnx' as object name
     # 'stock-model.onnx' to the bucket 'models'.
+    #
+    # fput_object(<bucket>, <destination-filename>, <source-filename>)
+    #
     try:
-        client.fput_object("models", "stock-model.onnx", "stocks.onnx")
+        client.fput_object("models", "stocks.onnx", "stocks.onnx")
 
     except S3Error as err:
         print(err)
 
+def upload_local_directory_to_minio(local_path, bucket_name, minio_path):
+    # Create a client with the MinIO server playground, its access key
+    # and secret key.
+    client = Minio(
+        os.getenv('S3_ENDPOINT'),
+        os.getenv('ACCESS_KEY'),
+        os.getenv('SECRET_KEY')
+    )
+
+    assert os.path.isdir(local_path)
+
+    for local_file in glob.glob(local_path + '/**'):
+        local_file = local_file.replace(os.sep, "/") # Replace \ with / on Windows
+        if not os.path.isfile(local_file):
+            upload_local_directory_to_minio(
+                local_file, bucket_name, minio_path + "/" + os.path.basename(local_file))
+        else:
+            remote_path = os.path.join(
+                minio_path, local_file[1 + len(local_path):])
+            remote_path = remote_path.replace(
+                os.sep, "/")  # Replace \ with / on Windows
+            client.fput_object(bucket_name, remote_path, local_file)
+
 print("Pushing model to object storage...")
 push_model()
-
+upload_local_directory_to_minio("stocks", "models", "stocks")
 #
 # Plots
 #
