@@ -20,6 +20,8 @@ import tensorflow as tf
 import os
 from minio import Minio
 from minio.error import S3Error
+import tf2onnx
+import onnx
 
 print(f'******* Env ACCESS_KEY = {os.getenv("ACCESS_KEY")}')
 print(f'******* Env SECRET_KEY = {os.getenv("SECRET_KEY")}')
@@ -108,7 +110,19 @@ print('Total training time {} seconds'.format(end - start))
 #
 # Save the model
 #
+print('Saving the model locally...')
+
+#
+# Tensorflow "saved_model" format.
+#
 tf.keras.models.save_model(model, 'stocks/1')
+
+#
+# onnx format
+# 
+# input_signature = [tf.TensorSpec([3, 3], tf.float32, name='x')]
+# onnx_model, _ = tf2onnx.convert.from_keras(model, input_signature, opset=13)
+onnx.save(model, "stocks.onnx")
 
 testing_start_date = '2019-01-01'
 testing_end_date = '2019-04-10'
