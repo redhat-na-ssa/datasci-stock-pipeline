@@ -18,6 +18,8 @@ from pandas_datareader import data as pdr
 import yfinance as yf
 import tensorflow as tf
 import os
+from minio import Minio
+from minio.error import S3Error
 
 print(f'******* Env ACCESS_KEY = {os.getenv("ACCESS_KEY")}')
 print(f'******* Env SECRET_KEY = {os.getenv("SECRET_KEY")}')
@@ -129,6 +131,32 @@ X_test = np.array(X_test)
 X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
 predicted_stock_price = model.predict(X_test)
 predicted_stock_price = sc.inverse_transform(predicted_stock_price)
+
+def push_model():
+    # Create a client with the MinIO server playground, its access key
+    # and secret key.
+    client = Minio(
+        os.getenv('S3_ENDPOINT'),
+        os.getenv('ACCESS_KEY'),
+        os.getenv('SECRET_KEY')
+    )
+
+    # Create a 'models' bucket if it does not exist.
+    found = client.bucket_exists("models")
+    if not found:
+        client.make_bucket("models")
+    else:
+        print("Bucket 'models' already exists")
+
+    # Upload 'stocks.onnx' as object name
+    # 'mymodel.onnx' to the bucket 'models'.
+    try:
+        client.fput_object("models", "mymodel.onnx", "stocks.onnx")
+
+    except ResponseError as err:
+        print(err)
+
+push_model()
 
 #
 # Plots
