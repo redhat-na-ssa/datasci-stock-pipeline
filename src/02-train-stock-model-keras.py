@@ -122,7 +122,8 @@ tf.keras.models.save_model(model, 'stocks/1')
 # 
 # input_signature = [tf.TensorSpec([3, 3], tf.float32, name='x')]
 # onnx_model, _ = tf2onnx.convert.from_keras(model, input_signature, opset=13)
-onnx.save(model, "stocks.onnx")
+model_proto,_ = tf2onnx.convert.from_keras(model)
+onnx.save(model_proto, "stocks.onnx")
 
 testing_start_date = '2019-01-01'
 testing_end_date = '2019-04-10'
@@ -163,9 +164,9 @@ def push_model():
         print("Bucket 'models' already exists")
 
     # Upload 'stocks.onnx' as object name
-    # 'mymodel.onnx' to the bucket 'models'.
+    # 'stock-model.onnx' to the bucket 'models'.
     try:
-        client.fput_object("models", "mymodel.onnx", "stocks.onnx")
+        client.fput_object("models", "stock-model.onnx", "stocks.onnx")
 
     except S3Error as err:
         print(err)
