@@ -51,9 +51,6 @@ tkn pipeline start ingest-and-train -w name=shared-workspace,volumeClaimTemplate
 ```
 
 ### TODOs
-- Integrate s3 storage into the `ingest` and `training` tasks.
-  - Ingest the csv file from s3 vs. the yahoo finance service.
-  - Save the trained model artifact to s3 storage so the Triton server can find it.
 
 ### References
 [Data streamer sample](https://github.com/redhat-na-ssa/ml_data_streamer/blob/main/source-eip/src/test/resources/samples/MUFG-1.csv)
