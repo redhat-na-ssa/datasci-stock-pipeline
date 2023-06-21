@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
 - datasci-project
 - minio
+- model-server
+
 # - pipelines
 
 # patches:
