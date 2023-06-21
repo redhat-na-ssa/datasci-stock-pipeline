@@ -40,8 +40,8 @@ spec:
           value: $(params.BOB)
         - name: "ACCESS_KEY"
           value: $(params.ACCESS_KEY)
-        - name: "ACCESS_SECRET"
-          value: $(params.ACCESS_SECRET)
+        - name: "SECRET_KEY"
+          value: $(params.SECRET_KEY)
         - name: "S3_ENDPOINT"
           value: $(params.S3_ENDPOINT)
 
@@ -57,7 +57,7 @@ spec:
           value: $(params.BOB)
         - name: "ACCESS_KEY"
           value: $(params.ACCESS_KEY)
-        - name: "ACCESS_SECRET"
-          value: $(params.ACCESS_SECRET)
+        - name: "SECRET_KEY"
+          value: $(params.SECRET_KEY)
         - name: "S3_ENDPOINT"
           value: $(params.S3_ENDPOINT)
