@@ -153,7 +153,7 @@ def push_model():
     try:
         client.fput_object("models", "mymodel.onnx", "stocks.onnx")
 
-    except ResponseError as err:
+    except S3Error as err:
         print(err)
 
 print("Pushing model to object storage...")
