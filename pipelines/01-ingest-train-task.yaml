@@ -13,10 +13,20 @@ spec:
     - description: The image
       name: IMAGE
       type: string
-    - name: bob
+    - name: BOB
       type: string
       description: ENV test
       default: "xyz"
+    - name: ACCESS_KEY
+      type: string
+      description: ENV test
+    - name: SECRET_KEY
+      type: string
+      description: ENV test
+    - name: S3_ENDPOINT
+      type: string
+      description: ENV test
+
   steps:
     - name: ingest
       image: $(params.IMAGE)
@@ -27,7 +37,14 @@ spec:
           echo -----------------------------------
       env:
         - name: "BOB"
-          value: "koz"
+          value: $(params.BOB)
+        - name: "ACCESS_KEY"
+          value: $(params.ACCESS_KEY)
+        - name: "ACCESS_SECRET"
+          value: $(params.ACCESS_SECRET)
+        - name: "S3_ENDPOINT"
+          value: $(params.S3_ENDPOINT)
+
     - name: train
       image: $(params.IMAGE)
       workingDir: /workspace/source
@@ -35,3 +52,12 @@ spec:
       args:
         - |-
           echo -----------------------------------
+      env:
+        - name: "BOB"
+          value: $(params.BOB)
+        - name: "ACCESS_KEY"
+          value: $(params.ACCESS_KEY)
+        - name: "ACCESS_SECRET"
+          value: $(params.ACCESS_SECRET)
+        - name: "S3_ENDPOINT"
+          value: $(params.S3_ENDPOINT)

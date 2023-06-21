@@ -19,6 +19,19 @@ spec:
     - name: IMAGE
       type: string
       description: image to be build from the code
+    - name: BOB
+      type: string
+      description: ENV testing
+    - name: ACCESS_KEY
+      type: string
+      description: minio access_key
+    - name: SECRET_KEY
+      type: string
+      description: minio secret_key
+    - name: S3_ENDPOINT
+      type: string
+      description: minio endpoint    
+
   tasks:
     - name: fetch-repository
       taskRef:
