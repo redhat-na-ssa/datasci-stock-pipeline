@@ -3,12 +3,12 @@ apiVersion: serving.kserve.io/v1beta1
 kind: InferenceService
 metadata:
   annotations:
-    openshift.io/display-name: stock
+    openshift.io/display-name: stocks
     serving.kserve.io/deploymentMode: ModelMesh
   labels:
-    name: stock
+    name: stocks
     opendatahub.io/dashboard: "true"
-  name: stock
+  name: stocks
 spec:
   predictor:
     model:
