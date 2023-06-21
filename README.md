@@ -3,9 +3,8 @@
 ## Prerequisites
 - An Openshift 4.11+ cluster
 - Object storage (minio)
-- The Pipelines Operator
+- The Openshift Pipelines Operator
 - The `oc` and `tkn` command line tools (See the question mark menu in the Openshift UI)
-- An Openshift project to work with
 
 ### Files and directories
 ```
