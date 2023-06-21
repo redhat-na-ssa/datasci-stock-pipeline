@@ -35,10 +35,11 @@ oc apply -f pipelines/02-ingest-train-pipeline.yaml
 pass its name in when starting the pipeline below. I called mine `my-pipeline-claim-01`
 
 ### Start a pipeline run
-```
-tkn pipeline start ingest-and-train -w name=shared-workspace,claimName=my-pipeline-claim-01 -p deployment-name=ingest-and-train -p git-url=https://github.com/redhat-na-ssa/stock.git -p IMAGE='image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train' --use-param-defaults
 
-tkn pipeline start ingest-and-train -w name=shared-workspace,claimName=my-pipeline-claim-01 -p deployment-name=ingest-and-train -p git-url=https://github.com/redhat-na-ssa/stock.git -p IMAGE='image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train' -p BOB='abc123xyz' -p ACCESS_KEY='access_key' -p SECRET_KEY='secret_key' -p S3_ENDPOINT='minio-route.com' --use-param-defaults
+Replace the `ACCESS_KEY`, `SECRET_KEY`, and `S3_ENDPOINT` values.
+
+```
+tkn pipeline start ingest-and-train -w name=shared-workspace,claimName=my-pipeline-claim-01 -p deployment-name=ingest-and-train -p git-url=https://github.com/redhat-na-ssa/stock.git -p IMAGE='image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train' -p ACCESS_KEY='access_key' -p SECRET_KEY='secret_key' -p S3_ENDPOINT='minio-route.com' --use-param-defaults
 ```
 
 ### -> Optional: Auto-create a pvc when starting the pipeline. 
