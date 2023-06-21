@@ -13,6 +13,10 @@ spec:
     - description: The image
       name: IMAGE
       type: string
+    - name: bob
+      type: string
+      description: ENV test
+      default: "xyz"
   steps:
     - name: ingest
       image: $(params.IMAGE)
