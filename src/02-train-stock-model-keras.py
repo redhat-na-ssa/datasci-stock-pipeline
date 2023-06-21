@@ -17,6 +17,11 @@ import matplotlib.pyplot as plt
 from pandas_datareader import data as pdr 
 import yfinance as yf
 import tensorflow as tf
+import os
+
+print(f'******* Env ACCESS_KEY = {os.getenv("ACCESS_KEY")}')
+print(f'******* Env SECRET_KEY = {os.getenv("SECRET_KEY")}')
+print(f'******* Env S3_ENDPOINT = {os.getenv("S3_ENDPOINT")}')
 
 tickers = 'IBM'
 start_date = '1980-12-01'
