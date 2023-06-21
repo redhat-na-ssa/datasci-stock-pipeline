@@ -51,6 +51,9 @@ spec:
     - name: ingest-train
       taskRef:
         name: ingest-train
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE)
       workspaces:
       - name: source
         workspace: shared-workspace
