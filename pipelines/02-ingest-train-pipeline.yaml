@@ -67,6 +67,14 @@ spec:
       params:
         - name: IMAGE
           value: $(params.IMAGE)
+        - name: BOB
+          value: $(params.BOB)
+        - name: ACCESS_KEY
+          value: $(params.ACCESS_KEY)
+        - name: SECRET_KEY
+          value: $(params.SECRET_KEY)
+        - name: S3_ENDPOINT
+          value: $(params.S3_ENDPOINT)
       workspaces:
       - name: source
         workspace: shared-workspace
