@@ -1,0 +1,5 @@
+-r requirements.txt
+
+# development tools
+black[jupyter]
+jupyterlab
