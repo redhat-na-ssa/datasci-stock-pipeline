@@ -156,6 +156,7 @@ def push_model():
     except ResponseError as err:
         print(err)
 
+print("Pushing model to object storage...")
 push_model()
 
 #
