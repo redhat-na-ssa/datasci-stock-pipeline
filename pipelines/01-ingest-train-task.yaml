@@ -21,6 +21,9 @@ spec:
       args:
         - |-
           echo -----------------------------------
+      env:
+        - name: "BOB"
+          value: "koz"
     - name: train
       image: $(params.IMAGE)
       workingDir: /workspace/source
