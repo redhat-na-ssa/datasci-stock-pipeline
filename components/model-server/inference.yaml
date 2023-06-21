@@ -1,0 +1,21 @@
+---
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    openshift.io/display-name: stock
+    serving.kserve.io/deploymentMode: ModelMesh
+  labels:
+    name: stock
+    opendatahub.io/dashboard: "true"
+  name: stock
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: onnx
+        version: "1"
+      runtime: stocks
+      storage:
+        key: minio-connection
+        path: stocks.onnx
