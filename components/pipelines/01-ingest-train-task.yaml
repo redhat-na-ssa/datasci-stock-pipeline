@@ -13,17 +13,13 @@ spec:
     - description: The image
       name: IMAGE
       type: string
-    - name: BOB
-      type: string
-      description: ENV test
-      default: "xyz"
     - name: ACCESS_KEY
       type: string
-      description: ENV test
+      description: S3 ACCESS KEY
       default: "access_key"
     - name: SECRET_KEY
       type: string
-      description: ENV test
+      description: S3 SECRET KEY
       default: "secret_key"
     - name: S3_ENDPOINT
       type: string
@@ -39,8 +35,6 @@ spec:
         - |-
           echo -----------------------------------
       env:
-        - name: "BOB"
-          value: $(params.BOB)
         - name: "ACCESS_KEY"
           value: $(params.ACCESS_KEY)
         - name: "SECRET_KEY"
@@ -56,8 +50,6 @@ spec:
         - |-
           echo -----------------------------------
       env:
-        - name: "BOB"
-          value: $(params.BOB)
         - name: "ACCESS_KEY"
           value: $(params.ACCESS_KEY)
         - name: "SECRET_KEY"
