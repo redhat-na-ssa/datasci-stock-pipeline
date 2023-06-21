@@ -20,12 +20,15 @@ spec:
     - name: ACCESS_KEY
       type: string
       description: ENV test
+      default: "access_key"
     - name: SECRET_KEY
       type: string
       description: ENV test
+      default: "secret_key"
     - name: S3_ENDPOINT
       type: string
       description: ENV test
+      default: "s3_endpoint"
 
   steps:
     - name: ingest
