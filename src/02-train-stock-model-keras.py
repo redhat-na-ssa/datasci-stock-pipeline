@@ -24,9 +24,9 @@ import tf2onnx
 import onnx
 import glob
 
-print(f'******* Env S3_ACCESS_KEY_ID = {os.getenv("S3_ACCESS_KEY_ID")}')
-print(f'******* Env S3_SECRET_ACCESS_KEY = {os.getenv("S3_SECRET_ACCESS_KEY")}')
-print(f'******* Env S3_ENDPOINT = {os.getenv("S3_ENDPOINT")}')
+print(f'******* Env AWS_ACCESS_KEY_ID = {os.getenv("AWS_ACCESS_KEY_ID")}')
+print(f'******* Env AWS_SECRET_ACCESS_KEY = {os.getenv("AWS_SECRET_ACCESS_KEY")}')
+print(f'******* Env AWS_S3_ENDPOINT = {os.getenv("AWS_S3_ENDPOINT")}')
 
 tickers = "IBM"
 start_date = "1980-12-01"
@@ -159,9 +159,9 @@ def push_model():
     # Create a client with the MinIO server playground, its access key
     # and secret key.
     client = Minio(
-        os.getenv("S3_ENDPOINT"), 
-        os.getenv("S3_ACCESS_KEY_ID"), 
-        os.getenv("S3_SECRET_ACCESS_KEY")
+        endpoint = os.getenv("AWS_S3_ENDPOINT"), 
+        access_key = os.getenv("AWS_ACCESS_KEY_ID"), 
+        secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
     )
 
     # Create a 'models' bucket if it does not exist.
@@ -183,13 +183,13 @@ def push_model():
         print(err)
 
 
-def upload_local_directory_to_minio(local_path, bucket_name, minio_path):
+def upload_local_directory_to_minio(local_path, bucket_name, bucket_path):
     # Create a client with the MinIO server playground, its access key
     # and secret key.
     client = Minio(
-        os.getenv("S3_ENDPOINT"),
-        os.getenv("S3_ACCESS_KEY_ID"),
-        os.getenv("S3_SECRET_ACCESS_KEY")
+        endpoint = os.getenv("AWS_S3_ENDPOINT"), 
+        access_key = os.getenv("AWS_ACCESS_KEY_ID"), 
+        secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
     )
 
     assert os.path.isdir(local_path)
@@ -198,10 +198,10 @@ def upload_local_directory_to_minio(local_path, bucket_name, minio_path):
         local_file = local_file.replace(os.sep, "/")  # Replace \ with / on Windows
         if not os.path.isfile(local_file):
             upload_local_directory_to_minio(
-                local_file, bucket_name, minio_path + "/" + os.path.basename(local_file)
+                local_file, bucket_name, bucket_path + "/" + os.path.basename(local_file)
             )
         else:
-            remote_path = os.path.join(minio_path, local_file[1 + len(local_path) :])
+            remote_path = os.path.join(bucket_path, local_file[1 + len(local_path) :])
             remote_path = remote_path.replace(
                 os.sep, "/"
             )  # Replace \ with / on Windows

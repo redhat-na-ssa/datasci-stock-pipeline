@@ -32,13 +32,12 @@ spec:
         - |-
           echo -----------------------------------
       env:
-        - name: "S3_ACCESS_KEY_ID"
+        - name: "AWS_ACCESS_KEY_ID"
           value: $(params.S3_ACCESS_KEY_ID)
-        - name: "S3_SECRET_ACCESS_KEY"
+        - name: "AWS_SECRET_ACCESS_KEY"
           value: $(params.S3_SECRET_ACCESS_KEY)
-        - name: "S3_ENDPOINT"
+        - name: "AWS_S3_ENDPOINT"
           value: $(params.S3_ENDPOINT)
-
     - name: train
       image: $(params.IMAGE)
       workingDir: /workspace/source
