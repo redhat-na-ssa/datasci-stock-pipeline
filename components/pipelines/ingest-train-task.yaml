@@ -27,7 +27,9 @@ spec:
     - name: ingest
       image: $(params.IMAGE)
       workingDir: /workspace/source
-      command: ["python", "src/01-yahoo2csv.py"]
+      command:
+        - "python"
+        - "01-yahoo2csv.py"
       args:
         - |-
           echo -----------------------------------
@@ -41,7 +43,9 @@ spec:
     - name: train
       image: $(params.IMAGE)
       workingDir: /workspace/source
-      command: ["python", "src/02-train-stock-model-keras.py"]
+      command: 
+        - "python"
+        - "02-train-stock-model-keras.py"
       args:
         - |-
           echo -----------------------------------
