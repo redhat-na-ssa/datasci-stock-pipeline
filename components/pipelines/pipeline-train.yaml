@@ -18,9 +18,9 @@ spec:
       type: string
       description: Directory where the code is located
       default: src
-    - name: IMAGE
+    - name: IMAGE_STREAM
       type: string
-      description: image to be built from the code
+      description: Image stream to be built from the code
       default: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train
     - name: S3_ACCESS_KEY_ID
       type: string
@@ -61,14 +61,14 @@ spec:
         - name: source
           workspace: shared-workspace
       params:
-        - name: IMAGE
-          value: $(params.IMAGE)
+        - name: IMAGE_STREAM
+          value: $(params.IMAGE_STREAM)
     - name: ingest-train
       taskRef:
         name: ingest-train
       params:
-        - name: IMAGE
-          value: $(params.IMAGE)
+        - name: IMAGE_STREAM
+          value: $(params.IMAGE_STREAM)
         - name: S3_ACCESS_KEY_ID
           value: $(params.S3_ACCESS_KEY_ID)
         - name: S3_SECRET_ACCESS_KEY
