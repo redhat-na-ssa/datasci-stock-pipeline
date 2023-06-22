@@ -4,8 +4,6 @@ metadata:
   annotations:
     openshift.io/description: ""
     openshift.io/display-name: Stocks
-    pv.kubernetes.io/bind-completed: "yes"
-    pv.kubernetes.io/bound-by-controller: "yes"
   labels:
     opendatahub.io/dashboard: "true"
   name: stocks

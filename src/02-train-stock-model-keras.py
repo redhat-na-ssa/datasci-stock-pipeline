@@ -24,8 +24,8 @@ import tf2onnx
 import onnx
 import glob
 
-print(f'******* Env ACCESS_KEY = {os.getenv("ACCESS_KEY")}')
-print(f'******* Env SECRET_KEY = {os.getenv("SECRET_KEY")}')
+print(f'******* Env S3_ACCESS_KEY_ID = {os.getenv("S3_ACCESS_KEY_ID")}')
+print(f'******* Env S3_SECRET_ACCESS_KEY = {os.getenv("S3_SECRET_ACCESS_KEY")}')
 print(f'******* Env S3_ENDPOINT = {os.getenv("S3_ENDPOINT")}')
 
 tickers = "IBM"
@@ -159,7 +159,9 @@ def push_model():
     # Create a client with the MinIO server playground, its access key
     # and secret key.
     client = Minio(
-        os.getenv("S3_ENDPOINT"), os.getenv("ACCESS_KEY"), os.getenv("SECRET_KEY")
+        os.getenv("S3_ENDPOINT"), 
+        os.getenv("S3_ACCESS_KEY_ID"), 
+        os.getenv("S3_SECRET_ACCESS_KEY")
     )
 
     # Create a 'models' bucket if it does not exist.
@@ -185,7 +187,9 @@ def upload_local_directory_to_minio(local_path, bucket_name, minio_path):
     # Create a client with the MinIO server playground, its access key
     # and secret key.
     client = Minio(
-        os.getenv("S3_ENDPOINT"), os.getenv("ACCESS_KEY"), os.getenv("SECRET_KEY")
+        os.getenv("S3_ENDPOINT"),
+        os.getenv("S3_ACCESS_KEY_ID"),
+        os.getenv("S3_SECRET_ACCESS_KEY")
     )
 
     assert os.path.isdir(local_path)
