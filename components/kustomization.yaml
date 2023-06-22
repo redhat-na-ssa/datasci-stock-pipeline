@@ -8,6 +8,7 @@ resources:
 - minio
 - model-server
 - pipelines
+- notebook
 
 # patches:
 #   - target:

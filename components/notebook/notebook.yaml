@@ -48,7 +48,7 @@ spec:
           value: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/tensorflow:2023.1
         envFrom:
         - secretRef:
-            name: aws-connection-minio
+            name: minio-connection
         image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/tensorflow:2023.1
         imagePullPolicy: Always
         livenessProbe:
