@@ -6,14 +6,18 @@ spec:
   workspaces:
     - name: shared-workspace
   params:
-    - name: git-url
+    - name: GIT-URL
       type: string
-      description: url of the git repo for the code
+      description: URL of the git repo for the code
       default: https://github.com/redhat-na-ssa/stock.git
-    - name: git-revision
+    - name: GIT-REVISION
       type: string
-      description: revision to be used from repo of the code
+      description: Revision / Branch / Tag to be used from repo of the code
       default: gitops
+    - name: CONTEXT-DIR
+      type: string
+      description: Directory where the code is located
+      default: src
     - name: IMAGE
       type: string
       description: image to be built from the code
@@ -40,13 +44,13 @@ spec:
           workspace: shared-workspace
       params:
         - name: url
-          value: $(params.git-url)
+          value: $(params.GIT-URL)
         - name: subdirectory
-          value: ""
+          value: $(params.CONTEXT-DIR)
         - name: deleteExisting
           value: "true"
         - name: revision
-          value: $(params.git-revision)
+          value: $(params.GIT-REVISION)
     - name: build
       runAfter:
         - fetch-repository

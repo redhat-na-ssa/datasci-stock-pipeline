@@ -1,0 +1,10 @@
+tensorflow
+pandas-datareader
+pydot
+pydot-ng
+yfinance
+pandas
+matplotlib
+scikit-learn
+minio
+tf2onnx
