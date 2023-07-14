@@ -25,7 +25,7 @@ spec:
 
   steps:
     - name: ingest
-      image: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE)
+      image: image-registry.openshift-image-registry.svc:5000/$(context.taskRun.namespace)/$(params.IMAGE)
       workingDir: /workspace/source
       command:
         - "python"
