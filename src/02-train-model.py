@@ -161,7 +161,8 @@ def push_model():
     client = Minio(
         endpoint = os.getenv("AWS_S3_ENDPOINT", "minio:9000").lstrip("http://"), 
         access_key = os.getenv("AWS_ACCESS_KEY_ID"), 
-        secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+        secret_key = os.getenv("AWS_SECRET_ACCESS_KEY"),
+        secure = False
     )
 
     # Create a 'models' bucket if it does not exist.
@@ -189,7 +190,8 @@ def upload_local_directory_to_minio(local_path, bucket_name, bucket_path):
     client = Minio(
         endpoint = os.getenv("AWS_S3_ENDPOINT", "minio:9000").lstrip("http://"),  
         access_key = os.getenv("AWS_ACCESS_KEY_ID"), 
-        secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+        secret_key = os.getenv("AWS_SECRET_ACCESS_KEY"),
+        secure = False
     )
 
     assert os.path.isdir(local_path)
