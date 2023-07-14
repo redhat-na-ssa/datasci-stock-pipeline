@@ -67,4 +67,4 @@ spec:
       - name: source
         workspace: shared-workspace
       runAfter:
-      - build
+      - fetch-repository
