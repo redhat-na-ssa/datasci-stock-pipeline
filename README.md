@@ -49,9 +49,9 @@ tkn pipeline start ingest-and-train \
   -p deployment-name=ingest-and-train \
   -p git-url=https://github.com/redhat-na-ssa/stock.git \
   -p IMAGE='image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train' \
-  -p S3_ACCESS_KEY_ID='S3_ACCESS_KEY_ID' \
-  -p S3_SECRET_ACCESS_KEY='S3_SECRET_ACCESS_KEY' \
-  -p S3_ENDPOINT='minio-route.com' \
+  -p S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID} \
+  -p S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY} \
+  -p S3_ENDPOINT='minio' \
   --use-param-defaults
 ```
 
