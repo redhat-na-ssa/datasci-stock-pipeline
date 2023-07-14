@@ -155,7 +155,7 @@ predicted_stock_price = model.predict(X_test)
 predicted_stock_price = sc.inverse_transform(predicted_stock_price)
 
 
-def push_model():
+def upload_model_to_s3():
     # Create a client with the MinIO server playground, its access key
     # and secret key.
     client = Minio(
@@ -211,7 +211,7 @@ def upload_local_directory_to_minio(local_path, bucket_name, bucket_path):
 
 
 print("Pushing model to object storage...")
-push_model()
+upload_model_to_s3()
 upload_local_directory_to_minio("stocks", "models", "stocks")
 #
 # Plots
