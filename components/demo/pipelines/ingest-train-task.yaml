@@ -9,7 +9,7 @@ spec:
     - description: Container image used to run the tasks
       name: IMAGE
       type: string
-      default: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train
+      default: ingest-and-train
     - name: S3_ACCESS_KEY_ID
       type: string
       description: S3 ACCESS KEY
@@ -25,7 +25,7 @@ spec:
 
   steps:
     - name: ingest
-      image: $(params.IMAGE)
+      image: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE)
       workingDir: /workspace/source
       command:
         - "python"
