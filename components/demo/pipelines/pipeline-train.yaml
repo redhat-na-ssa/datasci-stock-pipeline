@@ -45,15 +45,13 @@ spec:
       params:
         - name: url
           value: $(params.GIT-URL)
-        - name: subdirectory
-          value: $(params.CONTEXT-DIR)
         - name: deleteExisting
           value: "true"
         - name: revision
           value: $(params.GIT-REVISION)
-    - name: ingest-train
+    - name: ingest
       taskRef:
-        name: ingest-train
+        name: python-task
       params:
         - name: IMAGE_STREAM
           value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_STREAM)
@@ -63,8 +61,33 @@ spec:
           value: $(params.AWS_SECRET_ACCESS_KEY)
         - name: AWS_S3_ENDPOINT
           value: $(params.AWS_S3_ENDPOINT)
+        - name: CONTEXT-DIR
+          value: $(params.CONTEXT-DIR)
+        - name: SCRIPT
+          value: 01-get-data.py
       workspaces:
       - name: source
         workspace: shared-workspace
       runAfter:
       - fetch-repository
+    - name: train
+      taskRef:
+        name: python-task
+      params:
+        - name: IMAGE_STREAM
+          value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_STREAM)
+        - name: AWS_ACCESS_KEY_ID
+          value: $(params.AWS_ACCESS_KEY_ID)
+        - name: AWS_SECRET_ACCESS_KEY
+          value: $(params.AWS_SECRET_ACCESS_KEY)
+        - name: AWS_S3_ENDPOINT
+          value: $(params.AWS_S3_ENDPOINT)
+        - name: CONTEXT-DIR
+          value: $(params.CONTEXT-DIR)
+        - name: SCRIPT
+          value: 02-train-model.py
+      workspaces:
+      - name: source
+        workspace: shared-workspace
+      runAfter:
+      - ingest

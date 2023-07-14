@@ -33,8 +33,6 @@ spec:
       params:
         - name: url
           value: $(params.GIT-URL)
-        - name: subdirectory
-          value: $(params.CONTEXT-DIR)
         - name: deleteExisting
           value: "true"
         - name: revision
@@ -51,3 +49,5 @@ spec:
       params:
         - name: IMAGE
           value: $(params.IMAGE_STREAM)
+        - name: PATH_CONTEXT
+          value: $(params.CONTEXT-DIR)

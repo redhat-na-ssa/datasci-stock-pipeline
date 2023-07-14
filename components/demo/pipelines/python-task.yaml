@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: ingest-train
+  name: python-task
 spec:
   workspaces:
   - name: source
@@ -10,42 +10,33 @@ spec:
       name: IMAGE
       type: string
       default: ingest-and-train
+    - name: CONTEXT-DIR
+      type: string
+      description: Directory where the code is located
+      default: ''
     - name: AWS_ACCESS_KEY_ID
       type: string
       description: S3 ACCESS KEY
-      default: "minioadmin"
+      default: ''
     - name: AWS_SECRET_ACCESS_KEY
       type: string
       description: S3 SECRET ACCESS KEY
-      default: "minioadmin"
+      default: ''
     - name: AWS_S3_ENDPOINT
       type: string
       description: Used to define the endpoint serving S3 storage
-      default: "http://minio:9000"
-
+      default: ''
+    - name: SCRIPT
+      type: string
+      description: Python script you want to run
+      default: app.py
   steps:
-    - name: ingest
+    - name: script
       image: image-registry.openshift-image-registry.svc:5000/$(context.taskRun.namespace)/$(params.IMAGE)
-      workingDir: /workspace/source/src/src
+      workingDir: /workspace/source/$(params.CONTEXT-DIR)
       command:
         - "python"
-        - "01-get-data.py"
-      args:
-        - |-
-          echo -----------------------------------
-      env:
-        - name: "AWS_ACCESS_KEY_ID"
-          value: $(params.AWS_ACCESS_KEY_ID)
-        - name: "AWS_SECRET_ACCESS_KEY"
-          value: $(params.AWS_SECRET_ACCESS_KEY)
-        - name: "AWS_S3_ENDPOINT"
-          value: $(params.AWS_S3_ENDPOINT)
-    - name: train
-      image: image-registry.openshift-image-registry.svc:5000/$(context.taskRun.namespace)/$(params.IMAGE)
-      workingDir: /workspace/source/src/src
-      command: 
-        - "python"
-        - "02-train-model.py"
+        - "$(params.SCRIPT)"
       args:
         - |-
           echo -----------------------------------

@@ -34,10 +34,13 @@ Install Demo components
 oc apply -k components/demo
 ```
 
-### Create a PVC
+### Create a worker container image
 
-Use the Openshift UI to manually create a storage persistent volume claim (PVC) and
-pass its name in when starting the pipeline below. I called mine `my-pipeline-claim-01`
+```
+tkn pipeline start build-worker-image \
+  -w name=shared-workspace,claimName=pipeline \
+  --use-param-defaults
+```
 
 ### Start a pipeline run
 
