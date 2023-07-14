@@ -45,7 +45,7 @@ Replace the `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, and `S3_ENDPOINT` values
 
 ```
 tkn pipeline start ingest-and-train \
-  -w name=shared-workspace,claimName=stocks \
+  -w name=shared-workspace,claimName=pipeline \
   --use-param-defaults
 ```
 

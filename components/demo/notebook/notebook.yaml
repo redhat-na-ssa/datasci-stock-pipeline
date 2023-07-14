@@ -80,7 +80,7 @@ spec:
             memory: 8Gi
         volumeMounts:
         - mountPath: /opt/app-root/src
-          name: stocks
+          name: science
         workingDir: /opt/app-root/src
       - args:
         - --provider=openshift
@@ -144,9 +144,9 @@ spec:
       enableServiceLinks: false
       serviceAccountName: science
       volumes:
-      - name: stocks
+      - name: science
         persistentVolumeClaim:
-          claimName: stocks
+          claimName: science
       - name: oauth-config
         secret:
           defaultMode: 420
