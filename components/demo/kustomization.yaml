@@ -9,7 +9,6 @@ resources:
 - model-server
 - pipelines
 - notebook
-- pvc.yaml
 
 # patches:
 #   - target:
