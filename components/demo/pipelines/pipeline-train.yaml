@@ -13,7 +13,7 @@ spec:
     - name: GIT-REVISION
       type: string
       description: Revision / Branch / Tag to be used from repo of the code
-      default: gitops
+      default: main
     - name: CONTEXT-DIR
       type: string
       description: Directory where the code is located
