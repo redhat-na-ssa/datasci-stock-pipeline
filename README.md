@@ -44,7 +44,15 @@ pass its name in when starting the pipeline below. I called mine `my-pipeline-cl
 Replace the `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, and `S3_ENDPOINT` values.
 
 ```
-tkn pipeline start ingest-and-train -w name=shared-workspace,claimName=my-pipeline-claim-01 -p deployment-name=ingest-and-train -p git-url=https://github.com/redhat-na-ssa/stock.git -p IMAGE='image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train' -p S3_ACCESS_KEY_ID='S3_ACCESS_KEY_ID' -p S3_SECRET_ACCESS_KEY='S3_SECRET_ACCESS_KEY' -p S3_ENDPOINT='minio-route.com' --use-param-defaults
+tkn pipeline start ingest-and-train \
+  -w name=shared-workspace,claimName=stocks \
+  -p deployment-name=ingest-and-train \
+  -p git-url=https://github.com/redhat-na-ssa/stock.git \
+  -p IMAGE='image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train' \
+  -p S3_ACCESS_KEY_ID='S3_ACCESS_KEY_ID' \
+  -p S3_SECRET_ACCESS_KEY='S3_SECRET_ACCESS_KEY' \
+  -p S3_ENDPOINT='minio-route.com' \
+  --use-param-defaults
 ```
 
 ### Optional: Auto-create a pvc when starting the pipeline
