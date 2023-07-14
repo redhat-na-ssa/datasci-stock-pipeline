@@ -57,6 +57,8 @@ tkn pipeline start ingest-and-train -w name=shared-workspace,volumeClaimTemplate
 
 ### TODOs
 
+- Split build pipeline and training pipeline
+
 ### References
 
 [Data streamer sample](https://github.com/redhat-na-ssa/ml_data_streamer/blob/main/source-eip/src/test/resources/samples/MUFG-1.csv)
