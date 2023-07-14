@@ -29,7 +29,7 @@ spec:
       workingDir: /workspace/source
       command:
         - "python"
-        - "01-yahoo2csv.py"
+        - "01-get-data.py"
       args:
         - |-
           echo -----------------------------------
@@ -45,7 +45,7 @@ spec:
       workingDir: /workspace/source
       command: 
         - "python"
-        - "02-train-stock-model-keras.py"
+        - "02-train-model.py"
       args:
         - |-
           echo -----------------------------------
