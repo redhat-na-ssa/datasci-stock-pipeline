@@ -25,24 +25,23 @@ oc new-project ${PROJ}
 
 Apply the custom tasks and pipeline resources.
 ```
-oc apply -f pipelines/01-ingest-train-task.yaml
-oc apply -f pipelines/02-ingest-train-pipeline.yaml
+oc apply -f pipelines
 ```
 
 ### Create a PVC
 
--> Use the Openshift UI to manually create a storage persistent volume claim (PVC) and 
+Use the Openshift UI to manually create a storage persistent volume claim (PVC) and 
 pass its name in when starting the pipeline below. I called mine `my-pipeline-claim-01`
 
 ### Start a pipeline run
 
-Replace the `ACCESS_KEY`, `SECRET_KEY`, and `S3_ENDPOINT` values.
+Replace the `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, and `S3_ENDPOINT` values.
 
 ```
-tkn pipeline start ingest-and-train -w name=shared-workspace,claimName=my-pipeline-claim-01 -p deployment-name=ingest-and-train -p git-url=https://github.com/redhat-na-ssa/stock.git -p IMAGE='image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train' -p ACCESS_KEY='access_key' -p SECRET_KEY='secret_key' -p S3_ENDPOINT='minio-route.com' --use-param-defaults
+tkn pipeline start ingest-and-train -w name=shared-workspace,claimName=my-pipeline-claim-01 -p deployment-name=ingest-and-train -p git-url=https://github.com/redhat-na-ssa/stock.git -p IMAGE='image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ingest-and-train' -p S3_ACCESS_KEY_ID='S3_ACCESS_KEY_ID' -p S3_SECRET_ACCESS_KEY='S3_SECRET_ACCESS_KEY' -p S3_ENDPOINT='minio-route.com' --use-param-defaults
 ```
 
-### -> Optional: Auto-create a pvc when starting the pipeline. 
+### Optional: Auto-create a pvc when starting the pipeline. 
 
 This method requires further investigation as the PVCs don't get deleted when the pipeline gets deleted.
 

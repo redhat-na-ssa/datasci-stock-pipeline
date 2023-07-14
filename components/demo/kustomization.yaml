@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: pipelines-tutorial
+
+resources:
+- datasci-project
+- minio
+- model-server
+- pipelines
+- notebook
+
+# patches:
+#   - target:
+#       kind: OdhDashboardConfig
+#       name: odh-dashboard-config
+#     patch: |-
+#       - op: replace
+#         path: /metadata/namespace
+#         value: redhat-ods-applications
