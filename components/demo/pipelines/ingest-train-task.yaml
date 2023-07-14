@@ -26,7 +26,7 @@ spec:
   steps:
     - name: ingest
       image: image-registry.openshift-image-registry.svc:5000/$(context.taskRun.namespace)/$(params.IMAGE)
-      workingDir: /workspace/source
+      workingDir: /workspace/source/src/src
       command:
         - "python"
         - "01-get-data.py"
@@ -42,7 +42,7 @@ spec:
           value: $(params.S3_ENDPOINT)
     - name: train
       image: image-registry.openshift-image-registry.svc:5000/$(context.taskRun.namespace)/$(params.IMAGE)
-      workingDir: /workspace/source
+      workingDir: /workspace/source/src/src
       command: 
         - "python"
         - "02-train-model.py"
