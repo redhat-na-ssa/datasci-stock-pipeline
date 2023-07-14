@@ -22,15 +22,15 @@ spec:
       type: string
       description: Image stream to be built from the code
       default: ingest-and-train
-    - name: S3_ACCESS_KEY_ID
+    - name: AWS_S3_ACCESS_KEY_ID
       type: string
       description: minio access_key
       default: minioadmin
-    - name: S3_SECRET_ACCESS_KEY
+    - name: AWS_S3_SECRET_ACCESS_KEY
       type: string
       description: minio secret_key
       default: minioadmin
-    - name: S3_ENDPOINT
+    - name: AWS_S3_ENDPOINT
       type: string
       description: minio endpoint
       default: http://minio:9000
@@ -57,12 +57,12 @@ spec:
       params:
         - name: IMAGE_STREAM
           value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_STREAM)
-        - name: S3_ACCESS_KEY_ID
-          value: $(params.S3_ACCESS_KEY_ID)
-        - name: S3_SECRET_ACCESS_KEY
-          value: $(params.S3_SECRET_ACCESS_KEY)
-        - name: S3_ENDPOINT
-          value: $(params.S3_ENDPOINT)
+        - name: AWS_S3_ACCESS_KEY_ID
+          value: $(params.AWS_S3_ACCESS_KEY_ID)
+        - name: AWS_S3_SECRET_ACCESS_KEY
+          value: $(params.AWS_S3_SECRET_ACCESS_KEY)
+        - name: AWS_S3_ENDPOINT
+          value: $(params.AWS_S3_ENDPOINT)
       workspaces:
       - name: source
         workspace: shared-workspace
