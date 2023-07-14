@@ -3,6 +3,6 @@ kind: Kustomization
 
 resources:
 - ingest-train-task.yaml
-# - pipeline-build-worker.yaml
+- pipeline-build-worker.yaml
 - pipeline-train.yaml
 - pvc.yaml
