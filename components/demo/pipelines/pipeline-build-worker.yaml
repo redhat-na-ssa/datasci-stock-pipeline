@@ -9,7 +9,7 @@ spec:
     - name: GIT-URL
       type: string
       description: URL of the git repo for the code
-      default: https://github.com/redhat-na-ssa/stock.git
+      default: https://github.com/redhat-na-ssa/datasci-stock-pipeline.git
     - name: GIT-REVISION
       type: string
       description: Revision / Branch / Tag to be used from repo of the code
