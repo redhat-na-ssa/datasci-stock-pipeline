@@ -4,23 +4,18 @@ metadata:
   annotations:
     notebooks.kubeflow.org/last-activity: "2023-06-21T22:07:57Z"
     notebooks.opendatahub.io/inject-oauth: "true"
-    notebooks.opendatahub.io/last-image-selection: tensorflow:2023.1
-    notebooks.opendatahub.io/last-size-selection: Demo / Workshop
-    notebooks.opendatahub.io/oauth-logout-url: https://rhods-dashboard-redhat-ods-applications.apps.cluster-xx7jv.xx7jv.sandbox1365.opentlc.com/projects/pipelines-tutorial?notebookLogout=stocks
+    notebooks.opendatahub.io/last-image-selection: 'tensorflow:2023.1'
+    notebooks.opendatahub.io/last-size-selection: Small
+    notebooks.opendatahub.io/oauth-logout-url: https://rhods-dashboard-redhat-ods-applications.apps.cluster-xx7jv.xx7jv.sandbox1365.opentlc.com/projects/pipelines-tutorial?notebookLogout=science
     opendatahub.io/username: opentlc-mgr
     openshift.io/description: ""
-    openshift.io/display-name: Stocks
-  creationTimestamp: "2023-06-21T20:13:48Z"
-  generation: 2
+    openshift.io/display-name: Notebook
   labels:
-    app: stocks
+    app: science
     opendatahub.io/dashboard: "true"
     opendatahub.io/odh-managed: "true"
-    opendatahub.io/user: opentlc-2dmgr
-  name: stocks
+  name: science
   namespace: pipelines-tutorial
-  resourceVersion: "822977"
-  uid: 76dc9e56-dccb-4c90-a4ca-c6ce2dcff836
 spec:
   template:
     spec:
@@ -39,11 +34,11 @@ spec:
         - name: NOTEBOOK_ARGS
           value: |-
             --ServerApp.port=8888
-                              --ServerApp.token=''
-                              --ServerApp.password=''
-                              --ServerApp.base_url=/notebook/pipelines-tutorial/stocks
-                              --ServerApp.quit_button=False
-                              --ServerApp.tornado_settings={"user":"opentlc-2dmgr","hub_host":"https://rhods-dashboard-redhat-ods-applications.apps.cluster-xx7jv.xx7jv.sandbox1365.opentlc.com","hub_prefix":"/projects/pipelines-tutorial"}
+            --ServerApp.token=''
+            --ServerApp.password=''
+            --ServerApp.base_url=/notebook/pipelines-tutorial/science
+            --ServerApp.quit_button=False
+            --ServerApp.tornado_settings={"user":"opentlc-2dmgr","hub_host":"https://rhods-dashboard-redhat-ods-applications.apps.cluster-xx7jv.xx7jv.sandbox1365.opentlc.com","hub_prefix":"/projects/pipelines-tutorial"}
         - name: JUPYTER_IMAGE
           value: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/tensorflow:2023.1
         envFrom:
@@ -54,14 +49,14 @@ spec:
         livenessProbe:
           failureThreshold: 3
           httpGet:
-            path: /notebook/pipelines-tutorial/stocks/api
+            path: /notebook/pipelines-tutorial/science/api
             port: notebook-port
             scheme: HTTP
           initialDelaySeconds: 10
           periodSeconds: 5
           successThreshold: 1
           timeoutSeconds: 1
-        name: stocks
+        name: science
         ports:
         - containerPort: 8888
           name: notebook-port
@@ -69,7 +64,7 @@ spec:
         readinessProbe:
           failureThreshold: 3
           httpGet:
-            path: /notebook/pipelines-tutorial/stocks/api
+            path: /notebook/pipelines-tutorial/science/api
             port: notebook-port
             scheme: HTTP
           initialDelaySeconds: 10
@@ -78,11 +73,11 @@ spec:
           timeoutSeconds: 1
         resources:
           limits:
-            cpu: "6"
-            memory: 20Gi
+            cpu: '2'
+            memory: 8Gi
           requests:
-            cpu: "3"
-            memory: 10Gi
+            cpu: '1'
+            memory: 8Gi
         volumeMounts:
         - mountPath: /opt/app-root/src
           name: stocks
@@ -91,7 +86,7 @@ spec:
         - --provider=openshift
         - --https-address=:8443
         - --http-address=
-        - --openshift-service-account=stocks
+        - --openshift-service-account=science
         - --cookie-secret-file=/etc/oauth/config/cookie_secret
         - --cookie-expire=24h0m0s
         - --tls-cert=/etc/tls/private/tls.crt
@@ -100,8 +95,8 @@ spec:
         - --upstream-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
         - --email-domain=*
         - --skip-provider-button
-        - --openshift-sar={"verb":"get","resource":"notebooks","resourceAPIGroup":"kubeflow.org","resourceName":"stocks","namespace":"$(NAMESPACE)"}
-        - --logout-url=https://rhods-dashboard-redhat-ods-applications.apps.cluster-xx7jv.xx7jv.sandbox1365.opentlc.com/projects/pipelines-tutorial?notebookLogout=stocks
+        - --openshift-sar={"verb":"get","resource":"notebooks","resourceAPIGroup":"kubeflow.org","resourceName":"science","namespace":"$(NAMESPACE)"}
+        - --logout-url=https://rhods-dashboard-redhat-ods-applications.apps.cluster-xx7jv.xx7jv.sandbox1365.opentlc.com/projects/pipelines-tutorial?notebookLogout=science
         env:
         - name: NAMESPACE
           valueFrom:
@@ -147,7 +142,7 @@ spec:
         - mountPath: /etc/tls/private
           name: tls-certificates
       enableServiceLinks: false
-      serviceAccountName: stocks
+      serviceAccountName: science
       volumes:
       - name: stocks
         persistentVolumeClaim:
@@ -155,30 +150,8 @@ spec:
       - name: oauth-config
         secret:
           defaultMode: 420
-          secretName: stocks-oauth-config
+          secretName: science-oauth-config
       - name: tls-certificates
         secret:
           defaultMode: 420
-          secretName: stocks-tls
-status:
-  conditions:
-  - lastProbeTime: "2023-06-21T22:08:25Z"
-    lastTransitionTime: "2023-06-21T21:09:19Z"
-    status: "True"
-    type: Initialized
-  - lastProbeTime: "2023-06-21T22:08:25Z"
-    lastTransitionTime: "2023-06-21T21:09:40Z"
-    status: "True"
-    type: Ready
-  - lastProbeTime: "2023-06-21T22:08:25Z"
-    lastTransitionTime: "2023-06-21T21:09:40Z"
-    status: "True"
-    type: ContainersReady
-  - lastProbeTime: "2023-06-21T22:08:25Z"
-    lastTransitionTime: "2023-06-21T21:09:19Z"
-    status: "True"
-    type: PodScheduled
-  containerState:
-    running:
-      startedAt: "2023-06-21T21:09:27Z"
-  readyReplicas: 1
+          secretName: science-tls

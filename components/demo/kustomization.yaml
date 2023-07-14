@@ -12,8 +12,8 @@ resources:
 
 # patches:
 #   - target:
-#       group: image.openshift.io
-#       kind: ImageStream
+#       kind: OdhDashboardConfig
+#       name: odh-dashboard-config
 #     patch: |-
 #       - op: replace
 #         path: /metadata/namespace
