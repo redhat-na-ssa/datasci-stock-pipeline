@@ -16,16 +16,20 @@
 
 ### Pipeline example
 
-Login to Openshift and create a project.
+Login to Openshift with `oc`
+
+Install RHODS and OpenShift-Pipelines Operator
 
 ```
-PROJ=pipelines-tutorial
-oc new-project ${PROJ}
+# install operators
+oc apply -k components/operators
 ```
 
-Apply the custom tasks and pipeline resources.
+Install Demo components
+
 ```
-oc apply -f pipelines
+# install demo components
+oc apply -k components/demo
 ```
 
 ### Create a PVC
