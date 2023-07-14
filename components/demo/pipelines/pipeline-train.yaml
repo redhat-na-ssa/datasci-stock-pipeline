@@ -51,18 +51,6 @@ spec:
           value: "true"
         - name: revision
           value: $(params.GIT-REVISION)
-    - name: build
-      runAfter:
-        - fetch-repository
-      taskRef:
-        kind: ClusterTask
-        name: s2i-python
-      workspaces:
-        - name: source
-          workspace: shared-workspace
-      params:
-        - name: IMAGE_STREAM
-          value: $(params.IMAGE_STREAM)
     - name: ingest-train
       taskRef:
         name: ingest-train
