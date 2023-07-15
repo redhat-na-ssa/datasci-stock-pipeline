@@ -127,7 +127,7 @@ spec:
         - name: CONTEXT-DIR
           value: $(params.CONTEXT-DIR)
         - name: SCRIPT
-          value: 03-model-test.py
+          value: 04-model-test.py
       workspaces:
       - name: source
         workspace: shared-workspace
