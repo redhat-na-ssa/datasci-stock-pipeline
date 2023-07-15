@@ -36,5 +36,5 @@ def upload_to_s3(bucket, local_path, bucket_path):
 
 
 if __name__ == "__main__":
-    # upload_to_s3("data", "../data/IBM.csv", "stock/IBM.csv")
-    upload_to_s3("data", "../data/IBM-sample.csv", "stock/IBM-sample.csv")
+    upload_to_s3("data", "../data/IBM.csv", "stock/IBM.csv")
+    upload_to_s3("data", "../scratch/IBM-sample.csv", "stock/IBM-sample.csv")
