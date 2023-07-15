@@ -29,10 +29,10 @@ def upload_to_s3(bucket, source_filename, destination_filename):
         print(f"Bucket {bucket} already exists")
 
     try:
-        client.fput_object(bucket, source_filename, destination_filename)
+        client.fput_object(bucket, destination_filename, source_filename)
 
     except S3Error as err:
         print(err)
 
 if __name__ == "__main__":
-    upload_to_s3('data', 'IBM.csv', 'stock/IBM.csv')
+    upload_to_s3('data', '../data/IBM.csv', 'stock/IBM.csv')

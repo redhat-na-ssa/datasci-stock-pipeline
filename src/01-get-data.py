@@ -14,7 +14,7 @@ import pandas as pd
 
 if __name__ == "__main__":
     ticker = "IBM"
-    filename = ticker + ".csv"
+    filename = "../data/" + ticker + ".csv"
 
     yf.pdr_override()
     df = pdr.get_data_yahoo(ticker, start="2023-01-01", end="2023-06-01")
