@@ -29,6 +29,7 @@ def upload_to_s3(bucket, source_filename, destination_filename):
         print(f"Bucket {bucket} already exists")
 
     try:
+        print(f"Pushing {source_filename} to {bucket}/{destination_filename}")
         client.fput_object(bucket, destination_filename, source_filename)
 
     except S3Error as err:
