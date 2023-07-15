@@ -13,7 +13,7 @@
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+
 from pandas_datareader import data as pdr
 import yfinance as yf
 import tensorflow as tf
@@ -122,15 +122,16 @@ print("Saving the model locally...")
 #
 # Tensorflow "saved_model" format.
 #
-tf.keras.models.save_model(model, "stocks/1")
+tf.keras.models.save_model(model, "../scratch/stocks/1")
 
 #
 # onnx format
 #
 # input_signature = [tf.TensorSpec([3, 3], tf.float32, name='x')]
 # onnx_model, _ = tf2onnx.convert.from_keras(model, input_signature, opset=13)
-model_proto, _ = tf2onnx.convert.from_keras(model)
-onnx.save(model_proto, "stocks.onnx")
+onnx_model, _ = tf2onnx.convert.from_keras(model)
+
+onnx.save(onnx_model, "stocks.onnx")
 
 testing_start_date = "2019-01-01"
 testing_end_date = "2019-04-10"
@@ -211,7 +212,7 @@ def upload_local_directory_to_s3(bucket, local_path, bucket_path):
 
 
 upload_to_s3("models", "stocks.onnx", "stocks.onnx")
-upload_local_directory_to_s3("models", "stocks", "stocks")
+upload_local_directory_to_s3("models", "../scratch/stocks", "stocks")
 
 #
 # Plots
