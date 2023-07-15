@@ -6,7 +6,6 @@ import os
 
 import yfinance as yf
 from pandas_datareader import data as pdr
-import pandas as pd
 
 
 def get_stock_data(ticker, start_date, end_date, filename):
@@ -22,7 +21,7 @@ def get_stock_data(ticker, start_date, end_date, filename):
 
 if __name__ == "__main__":
 
-    ticker = "IBM"
+    ticker = os.getenv("TICKER", "IBM")
     filename = "../data/" + ticker + "-sample.csv"
     
     get_stock_data(ticker, start_date="2023-01-01", end_date="2023-06-01", filename=filename)
