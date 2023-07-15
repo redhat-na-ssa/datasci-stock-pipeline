@@ -25,4 +25,4 @@ if __name__ == "__main__":
     ticker = "IBM"
     filename = "../data/" + ticker + "-sample.csv"
     
-    get_stock_data(ticker, start="2023-01-01", end="2023-06-01")
+    get_stock_data(ticker, start_date="2023-01-01", end_date="2023-06-01", filename=filename)
