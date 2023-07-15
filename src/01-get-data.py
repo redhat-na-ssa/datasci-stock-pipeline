@@ -22,6 +22,6 @@ def get_stock_data(ticker, start_date, end_date, filename):
 if __name__ == "__main__":
 
     ticker = os.getenv("TICKER", "IBM")
-    filename = "../data/" + ticker + "-sample.csv"
+    filename = "../scratch/" + ticker + "-sample.csv"
     
     get_stock_data(ticker, start_date="2023-01-01", end_date="2023-06-01", filename=filename)
