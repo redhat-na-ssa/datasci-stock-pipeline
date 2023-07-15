@@ -117,7 +117,7 @@ print("Total training time {} seconds".format(end - start))
 #
 # Save the model
 #
-print("Saving the model locally...")
+print("Saving the model to ../scratch/stocks/1")
 
 #
 # Tensorflow "saved_model" format.
@@ -131,7 +131,7 @@ tf.keras.models.save_model(model, "../scratch/stocks/1")
 # onnx_model, _ = tf2onnx.convert.from_keras(model, input_signature, opset=13)
 onnx_model, _ = tf2onnx.convert.from_keras(model)
 
-onnx.save(onnx_model, "stocks.onnx")
+onnx.save(onnx_model, "../scratch/stocks.onnx")
 
 testing_start_date = "2019-01-01"
 testing_end_date = "2019-04-10"
@@ -211,7 +211,7 @@ def upload_local_directory_to_s3(bucket, local_path, bucket_path):
             client.fput_object(bucket, remote_path, local_file)
 
 
-upload_to_s3("models", "stocks.onnx", "stocks.onnx")
+upload_to_s3("models", "../scratch/stocks.onnx", "stocks.onnx")
 upload_local_directory_to_s3("models", "../scratch/stocks", "stocks")
 
 #
