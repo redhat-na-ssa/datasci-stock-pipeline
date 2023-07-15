@@ -24,9 +24,9 @@ import tf2onnx
 import onnx
 import glob
 
-print(f'******* Env AWS_ACCESS_KEY_ID = {os.getenv("AWS_ACCESS_KEY_ID")}')
-print(f'******* Env AWS_SECRET_ACCESS_KEY = {os.getenv("AWS_SECRET_ACCESS_KEY")}')
-print(f'******* Env AWS_S3_ENDPOINT = {os.getenv("AWS_S3_ENDPOINT")}')
+# print(f'******* Env AWS_ACCESS_KEY_ID = {os.getenv("AWS_ACCESS_KEY_ID")}')
+# print(f'******* Env AWS_SECRET_ACCESS_KEY = {os.getenv("AWS_SECRET_ACCESS_KEY")}')
+# print(f'******* Env AWS_S3_ENDPOINT = {os.getenv("AWS_S3_ENDPOINT")}')
 
 tickers = "IBM"
 start_date = "1980-12-01"
@@ -155,7 +155,8 @@ predicted_stock_price = model.predict(X_test)
 predicted_stock_price = sc.inverse_transform(predicted_stock_price)
 
 
-def upload_model_to_s3():
+def upload_to_s3(bucket, source_filename, bucket_path):
+
     # Create a client with the MinIO server playground, its access key
     # and secret key.
     client = Minio(
@@ -165,26 +166,25 @@ def upload_model_to_s3():
         secure = False
     )
 
-    # Create a 'models' bucket if it does not exist.
-    found = client.bucket_exists("models")
-    if not found:
-        client.make_bucket("models")
-    else:
-        print("Bucket 'models' already exists")
+    # Create a bucket if it does not exist.
+    found = client.bucket_exists(bucket)
 
-    # Upload 'stocks.onnx' as object name
-    # 'stock-model.onnx' to the bucket 'models'.
-    #
-    # fput_object(<bucket>, <destination-filename>, <source-filename>)
-    #
+    if not found:
+        print(f"Using Endpoint: {os.getenv('AWS_S3_ENDPOINT')}")
+        print(f"Attempting to create bucket: {bucket}")
+        client.make_bucket(bucket)
+    else:
+        print(f"Bucket {bucket} already exists")
+
     try:
-        client.fput_object("models", "stocks.onnx", "stocks.onnx")
+        print(f"Pushing {source_filename} to {bucket}/{bucket_path}")
+        client.fput_object(bucket, bucket_path, source_filename)
 
     except S3Error as err:
         print(err)
 
 
-def upload_local_directory_to_minio(local_path, bucket_name, bucket_path):
+def upload_local_directory_to_s3(bucket, local_path, bucket_path):
     # Create a client with the MinIO server playground, its access key
     # and secret key.
     client = Minio(
@@ -199,20 +199,20 @@ def upload_local_directory_to_minio(local_path, bucket_name, bucket_path):
     for local_file in glob.glob(local_path + "/**"):
         local_file = local_file.replace(os.sep, "/")  # Replace \ with / on Windows
         if not os.path.isfile(local_file):
-            upload_local_directory_to_minio(
-                local_file, bucket_name, bucket_path + "/" + os.path.basename(local_file)
+            upload_local_directory_to_s3(
+                bucket, local_file, bucket_path + "/" + os.path.basename(local_file)
             )
         else:
             remote_path = os.path.join(bucket_path, local_file[1 + len(local_path) :])
             remote_path = remote_path.replace(
                 os.sep, "/"
             )  # Replace \ with / on Windows
-            client.fput_object(bucket_name, remote_path, local_file)
+            client.fput_object(bucket, remote_path, local_file)
 
 
-print("Pushing model to object storage...")
-upload_model_to_s3()
-upload_local_directory_to_minio("stocks", "models", "stocks")
+upload_to_s3("models", "stocks.onnx", "stocks.onnx")
+upload_local_directory_to_s3("models", "stocks", "stocks")
+
 #
 # Plots
 #
