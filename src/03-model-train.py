@@ -109,7 +109,7 @@ def train_model():
     #
     from time import time
 
-    model_epochs = int(os.getenv("MODEL_EPOCHS", "10"))
+    model_epochs = int(os.getenv("MODEL_EPOCHS", "2"))
 
     start = time()
     history = model.fit(features, labels, epochs=model_epochs, batch_size=32, verbose=1)
