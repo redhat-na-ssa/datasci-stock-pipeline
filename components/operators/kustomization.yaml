@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
 - rhods-operator/operator/overlays/stable
 - openshift-pipelines-operator/overlays/latest
-- rhods-config
