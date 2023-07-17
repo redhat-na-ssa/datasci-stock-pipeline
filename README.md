@@ -20,6 +20,8 @@
 
 Login to Openshift with `oc`
 
+Note: You may have to run commands multiple times if errors about CRDs returned
+
 Install RHODS and OpenShift-Pipelines Operator
 
 ```
@@ -64,7 +66,8 @@ tkn pipeline start ingest-and-train \
 
 ### TODOs
 
-- Split build pipeline and training pipeline
+- Update pipeline to be more real
+- Show model versioning / optimization
 
 ### References
 
