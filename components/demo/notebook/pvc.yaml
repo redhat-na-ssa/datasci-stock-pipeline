@@ -3,10 +3,10 @@ kind: PersistentVolumeClaim
 metadata:
   annotations:
     openshift.io/description: ""
-    openshift.io/display-name: Stocks
+    openshift.io/display-name: Science
   labels:
     opendatahub.io/dashboard: "true"
-  name: stocks
+  name: science
 spec:
   accessModes:
   - ReadWriteOnce

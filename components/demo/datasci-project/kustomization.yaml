@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - minio-secret.yaml
   - namespace.yaml
-  - pvc.yaml
