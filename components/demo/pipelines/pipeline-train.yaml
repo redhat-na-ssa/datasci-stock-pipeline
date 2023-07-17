@@ -66,12 +66,7 @@ spec:
         - name: SCRIPT
           value: 
             - 01-get-data.py
-            - -s
-            - "1980-12-01"
-            - -e
-            - "2018-12-31"
             - IBM
-            - ../data/IBM.csv
       workspaces:
       - name: source
         workspace: shared-workspace
