@@ -39,9 +39,9 @@ spec:
         - "python"
         - |-
           $(params.SCRIPT)
-      args:
-        - |-
-          echo -----------------------------------
+      # args:
+      #   - |-
+      #     echo -----------------------------------
       env:
         - name: "AWS_ACCESS_KEY_ID"
           value: $(params.AWS_ACCESS_KEY_ID)
