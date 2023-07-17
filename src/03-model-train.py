@@ -16,8 +16,8 @@ import pandas as pd
 
 from sklearn.preprocessing import MinMaxScaler
 
-from pandas_datareader import data as pdr
-import yfinance as yf
+# from pandas_datareader import data as pdr
+# import yfinance as yf
 import tensorflow as tf
 import os
 from minio import Minio
@@ -31,16 +31,20 @@ import glob
 # print(f'******* Env AWS_S3_ENDPOINT = {os.getenv("AWS_S3_ENDPOINT")}')
 
 def train_model():
-    tickers = "IBM"
+    ticker = "IBM"
     start_date = "1980-12-01"
     end_date = "2018-12-31"
 
-    yf.pdr_override()
-    stock_data = pdr.get_data_yahoo(tickers, start_date)
+    # yf.pdr_override()
+    # stock_data = pdr.get_data_yahoo(tickers, start_date)
+
+    scratch = os.getenv("SCRATCH", "../scratch/")
+    
+    filename = "../data/" + ticker + ".csv"
+    stock_data = pd.read_csv(filename)
 
     stock_data_len = stock_data["Close"].count()
     print(f"Read in {stock_data_len} stock values")
-
 
     close_prices = stock_data.iloc[:, 1:2].values
     # print(close_prices)
