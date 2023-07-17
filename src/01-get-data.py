@@ -8,7 +8,6 @@ import argparse
 import yfinance as yf
 from pandas_datareader import data as pdr
 
-
 def get_args():
 
     parser = argparse.ArgumentParser(
@@ -17,6 +16,7 @@ def get_args():
 
     # parser.set_defaults("IBM")
     parser.add_argument("ticker", nargs="?", type=str, help="Stock Ticker", default="IBM")
+    parser.add_argument("filename", nargs="?", type=str, help="Filename")
     parser.add_argument("-s", "--start-date", type=str, help="Start Date", default="2023-01-01")
     parser.add_argument("-e", "--end-date", type=str, help="End Date", default="2023-06-01")
 
@@ -27,7 +27,7 @@ def get_args():
     except:
         print(args)
 
-def get_stock_data(ticker, start_date, end_date, filename):
+def output_stock_data(ticker, start_date, end_date, filename):
 
     print(f"Ticker: {ticker}")
 
@@ -42,12 +42,15 @@ def get_stock_data(ticker, start_date, end_date, filename):
 
 if __name__ == "__main__":
 
-    args = get_args()
-
-    scratch = "../scratch/"
+    # create scratch path
+    scratch = os.getenv("SCRATCH", "../scratch/")
     os.makedirs(scratch, exist_ok=True)
 
-    # ticker = os.getenv("TICKER", "IBM")
-    filename = scratch + args.ticker.upper() + "-sample.csv"
-    
-    get_stock_data(args.ticker, start_date=args.start_date, end_date=args.end_date, filename=filename)
+    args = get_args()
+
+    if args.filename:
+        filename = args.filename
+    else:
+        filename = scratch + args.ticker.upper() + "-sample.csv"
+
+    output_stock_data(args.ticker, start_date=args.start_date, end_date=args.end_date, filename=filename)

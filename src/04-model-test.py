@@ -1,33 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 #
-# Predict stock prices with Long short-term memory (LSTM)
-# This simple example will show you how LSTM models predict time series data. Stock market data is a great choice for this because it's quite regular and widely available via the Internet.
-#
-# Introduction
-# LSTMs are very powerful in sequence prediction problems. They can store past information.
-# Loading the dataset
-# Use the pandas-data reader to get the historical stock prices from Yahoo! finance.
-# For this example, I get only the historical data till the end of *training_end_data*.
-#
-
-import numpy as np
-import pandas as pd
-
-from sklearn.preprocessing import MinMaxScaler
-
-from pandas_datareader import data as pdr
-import yfinance as yf
-
-from minio import Minio
-from minio.error import S3Error
 
 import onnx
-
-# print(f'******* Env AWS_ACCESS_KEY_ID = {os.getenv("AWS_ACCESS_KEY_ID")}')
-# print(f'******* Env AWS_SECRET_ACCESS_KEY = {os.getenv("AWS_SECRET_ACCESS_KEY")}')
-# print(f'******* Env AWS_S3_ENDPOINT = {os.getenv("AWS_S3_ENDPOINT")}')
-
 
 def predict():
 

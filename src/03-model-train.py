@@ -191,5 +191,6 @@ def upload_local_directory_to_s3(bucket, local_path, bucket_path):
 
 
 train_model()
+
 upload_to_s3("models", "../scratch/stocks.onnx", "stocks.onnx")
 upload_local_directory_to_s3("models", "../scratch/stocks", "stocks")
