@@ -25,7 +25,7 @@ def get_args():
     try:
         return args
     except:
-        print(err, args)
+        print(args)
 
 def get_stock_data(ticker, start_date, end_date, filename):
 
