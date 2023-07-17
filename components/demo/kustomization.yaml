@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: pipelines-tutorial
 
 resources:
+- datasci-pipelines
 - datasci-project
 - minio
 - model-server
