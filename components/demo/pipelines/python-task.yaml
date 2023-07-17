@@ -27,16 +27,18 @@ spec:
       description: Used to define the endpoint serving S3 storage
       default: ''
     - name: SCRIPT
-      type: string
+      type: array
       description: Python script you want to run
-      default: app.py
+      default: 
+        - app.py
   steps:
     - name: script
       image: image-registry.openshift-image-registry.svc:5000/$(context.taskRun.namespace)/$(params.IMAGE)
       workingDir: /workspace/source/$(params.CONTEXT-DIR)
       command:
         - "python"
-        - "$(params.SCRIPT)"
+        - |-
+          $(params.SCRIPT)
       args:
         - |-
           echo -----------------------------------

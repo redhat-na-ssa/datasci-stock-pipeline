@@ -8,8 +8,10 @@ resources:
 - datasci-project
 - minio
 - model-server
-- pipelines
 - notebook
+# - pipeline-images
+- pipelines
+# - rhods-config
 
 # patches:
 #   - target:
