@@ -81,6 +81,8 @@ spec:
         volumeMounts:
         - mountPath: /opt/app-root/src
           name: science
+        - mountPath: /opt/app-root/runtimes
+          name: elyra-dsp-details
         workingDir: /opt/app-root/src
       - args:
         - --provider=openshift
@@ -155,3 +157,6 @@ spec:
         secret:
           defaultMode: 420
           secretName: science-tls
+      - name: elyra-dsp-details
+        secret:
+          secretName: ds-pipeline-config

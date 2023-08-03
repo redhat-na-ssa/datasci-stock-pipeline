@@ -6,3 +6,4 @@ kind: Kustomization
 
 resources:
 - dspa.yaml
+- setup-secret-job.yaml

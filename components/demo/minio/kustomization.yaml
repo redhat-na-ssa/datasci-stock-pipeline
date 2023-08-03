@@ -17,4 +17,5 @@ resources:
 - route.yaml
 - secret.yaml
 - service.yaml
-# - setup-job.yaml
+#- setup-job.yaml
+- setup-buckets-job.yaml

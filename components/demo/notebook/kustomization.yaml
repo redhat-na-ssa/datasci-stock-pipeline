@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - notebook.yaml
 - pvc.yaml
+- role-binding.yaml
