@@ -1,0 +1,78 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-minio-buckets
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  selector: {}
+  template:
+    spec:
+      serviceAccount: minio-buckets
+      serviceAccountName: minio-buckets
+      initContainers:
+        - name: wait-for-minio
+          image: image-registry.openshift-image-registry.svc:5000/openshift/tools:latest
+          imagePullPolicy: IfNotPresent
+          command: [ "/bin/bash" ]
+          args:
+            - -ec
+            - |-
+              echo -n 'Waiting for minio deployment'
+              while ! oc get deployment minio 2>/dev/null | grep -qF minio; do
+                echo -n .
+                sleep 5
+              done; echo
+              oc wait --for=condition=available --timeout=60s deployment/minio
+              sleep 10
+      containers:
+        - name: create-buckets
+          image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/s2i-generic-data-science-notebook:1.2
+          imagePullPolicy: IfNotPresent
+          command: [ "/bin/bash" ]
+          args:
+            - -ec
+            - |-
+              env | grep MINIO
+              cat << 'EOF' | python3
+              import boto3, os
+
+              s3 = boto3.client("s3",
+                                endpoint_url="http://minio:9000",
+                                aws_access_key_id=os.getenv("MINIO_ROOT_USER"),
+                                aws_secret_access_key=os.getenv("MINIO_ROOT_PASSWORD"))
+              bucket = 'pipeline-artifacts'
+              print('creating pipeline-artifacts bucket')
+              if bucket not in [bu["Name"] for bu in s3.list_buckets()["Buckets"]]:
+                s3.create_bucket(Bucket=bucket)
+              bucket = 'models'
+              print('creating models bucket')
+              if bucket not in [bu["Name"] for bu in s3.list_buckets()["Buckets"]]:
+                s3.create_bucket(Bucket=bucket)
+              EOF
+          envFrom:
+            - secretRef:
+                name: minio-root-user
+      restartPolicy: Never
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: minio-buckets
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: minio-buckets
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+  - kind: ServiceAccount
+    name: minio-buckets

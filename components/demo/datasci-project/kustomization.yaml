@@ -3,4 +3,5 @@ kind: Kustomization
 
 resources:
   - minio-secret.yaml
+  - dspa-secret.yaml
   - namespace.yaml
