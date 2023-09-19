@@ -151,7 +151,7 @@
         "version": 8,
         "runtime_type": "KUBEFLOW_PIPELINES",
         "properties": {
-          "name": "train-upload-stock",
+          "name": "Keras Stock Training",
           "runtime": "Data Science Pipelines",
           "pipeline_defaults": {
             "kubernetes_tolerations": [],
@@ -186,8 +186,7 @@
                 "key": "AWS_S3_BUCKET"
               }
             ],
-            "env_vars": [],
-            "runtime_image": "quay.io/modh/runtime-images@sha256:dc8679b47d0af5f4b23ec8a987c696afda54b192316b5cbcae0ecb660497f652"
+            "runtime_image": "quay.io/modh/runtime-images@sha256:8df90db22b29afb1cd9c81d52be9145fed50e3b04ec80bb7ea7ecaa7476dbe5c"
           },
           "pipeline_parameters": []
         }
